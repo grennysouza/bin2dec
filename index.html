@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="number">
+    <input type="button" value="Convert" onclick="convertBinaryToDecimal(number.value)">
+</body>
+<script>
+    function convertBinaryToDecimal(number) {
+        var resultado = document.createElement("p");
+
+        if (/^[0-1]*$/.test(number)) {
+          let n = 0;
+
+          for (let i = number.length; i >= 0; i--) {
+            // The formula is n = (b1 x 2^0) + (b2 x 2^1) + (b3 x 2^2) + … + ( bn x 2^(x-1) )
+            // Where: n is the decimal number equivalent
+            //        b1 is the Least Significant Bit (LSB)
+            //        bn is the Most Significant Bit  (MSB)
+            //        x is the position of the MSB
+
+            n += number.charAt(i-1) * Math.pow(2, number.length-i);
+          }
+
+          resultado.innerHTML = number + " is " + n + " in decimal";
+        } else {
+          resultado.innerHTML = "Please enter a binary number!";
+        }
+
+        document.body.appendChild(resultado);
+    }
+</script>
+</html>
