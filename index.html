@@ -5,35 +5,52 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Bin2Dec - A binary-decimal conversor</title>
+    <style>
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
-    <input type="text" id="number">
-    <input type="button" value="Convert" onclick="convertBinaryToDecimal(number.value)">
+    <div class="border center p-4">
+        <div class="form-group">
+            <input type="text" class="form-control" id="inputBinary" placeholder="Enter a binary number">
+        </div>
+        <button type="button" class="btn btn-primary form-group form-control" onclick="convertBinaryToDecimal()">Convert</button>
+        <div class="form-group">
+            <input type="text" class="form-control" id="resultDecimal" placeholder="Decimal converted">
+        </div>
+    </div>
 </body>
 <script>
-    function convertBinaryToDecimal(number) {
-        var resultado = document.createElement("p");
+    function convertBinaryToDecimal() {
+        let binaryValue = document.getElementById("inputBinary").value;
+        let inputDecimal = document.getElementById("resultDecimal");
 
-        if (/^[0-1]*$/.test(number)) {
+        if (/^[0-1]*$/.test(binaryValue)) {
           let n = 0;
 
-          for (let i = number.length; i >= 0; i--) {
+          for (let i = binaryValue.length; i >= 0; i--) {
             // The formula is n = (b1 x 2^0) + (b2 x 2^1) + (b3 x 2^2) + … + ( bn x 2^(x-1) )
             // Where: n is the decimal number equivalent
             //        b1 is the Least Significant Bit (LSB)
             //        bn is the Most Significant Bit  (MSB)
             //        x is the position of the MSB
 
-            n += number.charAt(i-1) * Math.pow(2, number.length-i);
+            n += binaryValue.charAt(i-1) * Math.pow(2, binaryValue.length-i);
           }
 
-          resultado.innerHTML = number + " is " + n + " in decimal";
+          inputDecimal.value = n;
         } else {
-          resultado.innerHTML = "Please enter a binary number!";
+          inputDecimal.value = "Is not a binary!";
         }
-
-        document.body.appendChild(resultado);
     }
 </script>
 </html>
